@@ -1,62 +1,80 @@
-import React, {useEffect, useState} from 'react';
-import CreateTask from '../modals/CreateTask'
-import Card from './Card';
+import React, { useEffect, useState } from "react";
+import CreateTask from "../modals/CreateTask";
+import Card from "./Card";
+import { Button, Container } from "@mui/material";
 
 const TodoList = () => {
-    const [modal, setModal] = useState(false);
-    const [taskList, setTaskList] = useState([])
-    
-    useEffect(() => {
-        let arr = localStorage.getItem("taskList")
-       
-        if(arr){
-            let obj = JSON.parse(arr)
-            setTaskList(obj)
-        }
-    }, [])
+  const [modal, setModal] = useState(false);
+  const [taskList, setTaskList] = useState([]);
+  const [categories, setCategories] = useState([]);
 
+  useEffect(() => {
+    let arr = localStorage.getItem("taskList");
 
-    const deleteTask = (index) => {
-        let tempList = taskList
-        tempList.splice(index, 1)
-        localStorage.setItem("taskList", JSON.stringify(tempList))
-        setTaskList(tempList)
-        window.location.reload()
+    if (arr) {
+      let obj = JSON.parse(arr);
+      setTaskList(obj);
     }
 
-    const updateListArray = (obj, index) => {
-        let tempList = taskList
-        tempList[index] = obj
-        localStorage.setItem("taskList", JSON.stringify(tempList))
-        setTaskList(tempList)
-        window.location.reload()
-    }
+    setCategories(["study", "meeting", "important"]);
+  }, []);
 
-    const toggle = () => {
-        setModal(!modal);
-    }
+  const deleteTask = (index) => {
+    let tempList = taskList;
+    tempList.splice(index, 1);
+    localStorage.setItem("taskList", JSON.stringify(tempList));
+    setTaskList(tempList);
+    window.location.reload();
+  };
 
-    const saveTask = (taskObj) => {
-        let tempList = taskList
-        tempList.push(taskObj)
-        localStorage.setItem("taskList", JSON.stringify(tempList))
-        setTaskList(taskList)
-        setModal(false)
-    }
+  const updateListArray = (obj, index) => {
+    let tempList = taskList;
+    tempList[index] = obj;
+    localStorage.setItem("taskList", JSON.stringify(tempList));
+    setTaskList(tempList);
+    window.location.reload();
+  };
 
+  const toggle = () => {
+    setModal(!modal);
+  };
 
-    return (
-        <>
-            <div className = "header text-center">
-                <h3>Todo List</h3>
-                <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >Create Task</button>
-            </div>
-            <div className = "task-container">
-            {taskList && taskList.map((obj , index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask} updateListArray = {updateListArray}/> )}
-            </div>
-            <CreateTask toggle = {toggle} modal = {modal} save = {saveTask}/>
-        </>
-    );
+  const saveTask = (taskObj) => {
+    let tempList = taskList;
+    tempList.push(taskObj);
+    localStorage.setItem("taskList", JSON.stringify(tempList));
+    setTaskList(taskList);
+    setModal(false);
+  };
+
+  return (
+    <>
+      <Container>
+        <h3>Todo List</h3>
+        <Button variant="outlined" onClick={() => setModal(true)}>
+          Create Task
+        </Button>
+      </Container>
+      <div className="task-container">
+        {taskList &&
+          taskList.map((obj, index) => (
+            <Card
+              categories={categories}
+              taskObj={obj}
+              index={index}
+              deleteTask={deleteTask}
+              updateListArray={updateListArray}
+            />
+          ))}
+      </div>
+      <CreateTask
+        categories={categories}
+        toggle={toggle}
+        modal={modal}
+        save={saveTask}
+      />
+    </>
+  );
 };
 
 export default TodoList;
