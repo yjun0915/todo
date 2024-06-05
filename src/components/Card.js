@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import EditTask from "../modals/EditTask";
 import { Checkbox, Container, FormControlLabel } from "@mui/material";
 
+const category = { study: 0, meeting: 1, important: 2, work: 3 };
+
 const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
   const [modal, setModal] = useState(false);
 
@@ -44,14 +46,17 @@ const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
     <Container class="card-wrapper mr-5">
       <div
         class="card-top"
-        style={{ "background-color": colors[index % 5].primaryColor }}
+        style={{
+          "background-color": colors[category[taskObj.Category]].primaryColor,
+        }}
       ></div>
       <div class="task-holder">
         {taskObj && <p className="mt-3">{`Category: ${taskObj.Category}`}</p>}
         <span
           class="card-header"
           style={{
-            "background-color": colors[index % 5].secondaryColor,
+            "background-color":
+              colors[category[taskObj.Category]].secondaryColor,
             "border-radius": "10px",
           }}
         >

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CreateTask from "../modals/CreateTask";
 import Card from "./Card";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Divider } from "@mui/material";
 
 const TodoList = () => {
   const [modal, setModal] = useState(false);
@@ -16,7 +16,7 @@ const TodoList = () => {
       setTaskList(obj);
     }
 
-    setCategories(["study", "meeting", "important"]);
+    setCategories(["study", "meeting", "important", "work"]);
   }, []);
 
   const deleteTask = (index) => {
@@ -55,6 +55,19 @@ const TodoList = () => {
           Create Task
         </Button>
       </Container>
+      <div className="task-container">
+        {taskList &&
+          taskList.map((obj, index) => (
+            <Card
+              categories={categories}
+              taskObj={obj}
+              index={index}
+              deleteTask={deleteTask}
+              updateListArray={updateListArray}
+            />
+          ))}
+      </div>
+      <Divider textAlign="left">Completed Task</Divider>
       <div className="task-container">
         {taskList &&
           taskList.map((obj, index) => (
