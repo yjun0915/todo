@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EditTask from "../modals/EditTask";
 import { Checkbox, Container, FormControlLabel } from "@mui/material";
 
-const category = { study: 0, meeting: 1, important: 2, work: 3 };
+const category = { study: 0, meeting: 1, important: 2, work: 3, Etc: 4 };
 
 const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
   const [modal, setModal] = useState(false);
@@ -78,16 +78,26 @@ const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
           <FormControlLabel
             control={<Checkbox />}
             label="완료한 TODO"
+            labelPlacement="start"
+            onChange={(e) => {
+              console.log(e);
+            }}
             style={{ background: "#CFFFE5" }}
           />
           <button
-            style={{ color: colors[index % 5].primaryColor, cursor: "pointer" }}
+            style={{
+              color: colors[category[taskObj.Category]].primaryColor,
+              cursor: "pointer",
+            }}
             onClick={() => setModal(true)}
           >
             close
           </button>
           <button
-            style={{ color: colors[index % 5].primaryColor, cursor: "pointer" }}
+            style={{
+              color: colors[category[taskObj.Category]].primaryColor,
+              cursor: "pointer",
+            }}
             onClick={handleDelete}
           >
             Delete

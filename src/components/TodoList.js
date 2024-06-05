@@ -16,7 +16,7 @@ const TodoList = () => {
       setTaskList(obj);
     }
 
-    setCategories(["study", "meeting", "important", "work"]);
+    setCategories(["study", "meeting", "important", "work", "Etc"]);
   }, []);
 
   const deleteTask = (index) => {
