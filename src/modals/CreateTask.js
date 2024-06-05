@@ -21,8 +21,6 @@ const CreateTaskPopup = ({ categories, modal, toggle, save }) => {
       setTaskName(value);
     } else if (name === "description") {
       setDescription(value);
-    } else {
-      setCategory(value);
     }
   };
 
@@ -44,11 +42,15 @@ const CreateTaskPopup = ({ categories, modal, toggle, save }) => {
             <Autocomplete
               disablePortal
               id="combo-box-demo"
+              name="categories"
+              value={category}
               options={categories}
-              onChange={handleChange}
+              onChange={(e, newValue) => {
+                setCategory(newValue);
+              }}
               sx={{ width: 300 }}
               renderInput={(params) => (
-                <TextField {...params} label="Category" />
+                <TextField {...params} label="Categories" />
               )}
             />
           </div>

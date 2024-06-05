@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import EditTask from "../modals/EditTask";
-import { Container } from "@mui/material";
+import { Checkbox, Container, FormControlLabel } from "@mui/material";
 
 const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
   const [modal, setModal] = useState(false);
@@ -47,9 +47,7 @@ const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
         style={{ "background-color": colors[index % 5].primaryColor }}
       ></div>
       <div class="task-holder">
-        {taskObj && (
-          <p className="mt-3">{`Category: ${categories[taskObj.Category]}`}</p>
-        )}
+        {taskObj && <p className="mt-3">{`Category: ${taskObj.Category}`}</p>}
         <span
           class="card-header"
           style={{
@@ -61,7 +59,22 @@ const Card = ({ categories, taskObj, index, deleteTask, updateListArray }) => {
         </span>
         <p className="mt-3">{taskObj.Description}</p>
 
-        <div style={{ position: "absolute", top: "160px", left: "160px" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: "160px",
+            left: "10px",
+            height: "30px",
+            display: "flex",
+            flexDirection: "riw",
+            gap: "5px",
+          }}
+        >
+          <FormControlLabel
+            control={<Checkbox />}
+            label="완료한 TODO"
+            style={{ background: "#CFFFE5" }}
+          />
           <button
             style={{ color: colors[index % 5].primaryColor, cursor: "pointer" }}
             onClick={() => setModal(true)}
